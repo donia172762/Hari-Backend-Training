@@ -1,0 +1,50 @@
+[
+    {
+        "Employee_ID": "003",
+        "Full_name": "Ahmed Ali",
+        "Email": "ahmadgmail.com",
+        "Department": "Backend",
+        "Salary": "5500",
+        "Joining_date": "2021-07-10",
+        "Employment_Status": "Active",
+        "Errors": [
+            "Invalid email format"
+        ]
+    },
+    {
+        "Employee_ID": "004",
+        "Full_name": "Salma Hassan",
+        "Email": "salma123@gmail.com",
+        "Department": "Full Stack",
+        "Salary": "4800",
+        "Joining_date": "2020-11-05",
+        "Employment_Status": "Pending",
+        "Errors": [
+            "Invalid employment status"
+        ]
+    },
+    {
+        "Employee_ID": "005",
+        "Full_name": "Sara Ali",
+        "Email": "sara@gmail.com",
+        "Department": "Frontend",
+        "Salary": "-1200",
+        "Joining_date": "2021-02-18",
+        "Employment_Status": "Inactive",
+        "Errors": [
+            "Invalid salary"
+        ]
+    },
+    {
+        "Employee_ID": "006",
+        "Full_name": "Ali Omar",
+        "Email": "ali@gmail.com",
+        "Department": "Backend",
+        "Salary": "6000",
+        "Joining_date": "hello",
+        "Employment_Status": "Active",
+        "Errors": [
+            "Invalid date format. Expected YYYY-MM-DD."
+        ]
+    }
+]

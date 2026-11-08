@@ -1,0 +1,5 @@
+Employee_ID,Full_name,Email,Department,Salary,Joining_date,Employment_Status
+001,Donia Said,donia12@gmail.com,Backend,5000,2020-01-15,Active
+002,Israa Turkman,israa123@gmail.com,Frontend,4500,2019-03-22,Active
+101,Lina Ahmad,lina@gmail.com,Backend,5200,2022-05-10,Active
+102,Omar Khaled,omar@gmail.com,Frontend,4300,2021-08-15,Inactive

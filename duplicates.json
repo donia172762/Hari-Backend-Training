@@ -1,0 +1,11 @@
+[
+    {
+        "Employee_ID": "001",
+        "Full_name": "Rayan Khaled",
+        "Email": "rayam@gmail.com",
+        "Department": "Backend",
+        "Salary": "5000",
+        "Joining_date": "2020-01-15",
+        "Employment_Status": "Inactive"
+    }
+]

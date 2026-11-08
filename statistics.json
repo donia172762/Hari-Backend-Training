@@ -1,0 +1,53 @@
+{
+    "Valid Employees": 4,
+    "Invalid Employees": 4,
+    "Duplicate Employees": 1,
+    "Average Salary": 4750.0,
+    "Minimum Salary": 4300.0,
+    "Maximum Salary": 5200.0,
+    "Top 5 highest-paid employees ": [
+        {
+            "Employee_ID": "101",
+            "Full_name": "Lina Ahmad",
+            "Email": "lina@gmail.com",
+            "Department": "Backend",
+            "Salary": "5200",
+            "Joining_date": "2022-05-10",
+            "Employment_Status": "Active"
+        },
+        {
+            "Employee_ID": "001",
+            "Full_name": "Donia Said",
+            "Email": "donia12@gmail.com",
+            "Department": "Backend",
+            "Salary": "5000",
+            "Joining_date": "2020-01-15",
+            "Employment_Status": "Active"
+        },
+        {
+            "Employee_ID": "002",
+            "Full_name": "Israa Turkman",
+            "Email": "israa123@gmail.com",
+            "Department": "Frontend",
+            "Salary": "4500",
+            "Joining_date": "2019-03-22",
+            "Employment_Status": "Active"
+        },
+        {
+            "Employee_ID": "102",
+            "Full_name": "Omar Khaled",
+            "Email": "omar@gmail.com",
+            "Department": "Frontend",
+            "Salary": "4300",
+            "Joining_date": "2021-08-15",
+            "Employment_Status": "Inactive"
+        }
+    ],
+    "Employee count per department": {
+        "Backend": 2,
+        "Frontend": 2
+    },
+    "Active Employees": 3,
+    "Inactive Employees": 1,
+    "Total Employees": 9
+}
