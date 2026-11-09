@@ -110,44 +110,6 @@ The system uses parameterized SQL queries with `%s` placeholders and handles dat
 - `NOT EXISTS` is used to avoid inserting identical error records multiple times.
 - Database constraints such as `PRIMARY KEY` and `UNIQUE` help maintain data integrity.
 
-## How to Run
-
-### Requirements
-
-- Python 3.9 or later
-- MySQL Server
-- mysql-connector-python
-
-### 1. Install Dependencies
-
-From the repository root directory, run:
-
-```bash
-python -m pip install -r requirements.txt
-```
-
-### 2. Create the Database
-
-Log in to MySQL and execute the SQL statements provided in `Task1/schema.sql`.
-
-Alternatively, from a terminal with the MySQL client available:
-
-```bash
-mysql -u root -p < Task1/schema.sql
-```
-
-### 3. Configure Database Credentials
-
-Set the `MYSQL_PASSWORD` environment variable to your local MySQL password.
-
-For Windows PowerShell:
-
-```powershell
-$env:MYSQL_PASSWORD = Read-Host "Enter MySQL password"
-```
-
-The password is read using `os.getenv("MYSQL_PASSWORD")` and is not stored directly in the Python source code.
-
 ### 4. Run the Application
 
 From the repository root directory:
