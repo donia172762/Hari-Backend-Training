@@ -4,7 +4,9 @@
 
 A Python-based Employee Data Processing System that reads employee records from CSV and JSON files, validates and normalizes employee information, detects duplicate records, and generates statistical reports.
 
-The project uses Object-Oriented Programming (OOP) and Python's standard libraries.
+The system is integrated with a MySQL database to store valid employee records and track validation errors and duplicate records.
+
+The project uses Object-Oriented Programming (OOP), Python's standard libraries, and MySQL Connector.
 
 ## Features
 
@@ -21,52 +23,148 @@ The project uses Object-Oriented Programming (OOP) and Python's standard librari
 - Generate CSV and JSON reports.
 - Implement a custom exception, decorator, generator, type hints, and logging.
 - Perform unit testing using Python's `unittest` library.
+- Connect Python to a MySQL database.
+- Store valid employees in the MySQL `employees` table.
+- Store validation errors and duplicate records in the MySQL `errors` table.
+- Handle database operations using cursors, transactions, commits, and rollbacks.
+- Prevent repeated insertion of existing employees and duplicate error records.
+- Manage database connections using a dedicated `DatabaseManager` class.
 
 ## Project Structure
 
-Task1/
-├── main.py
-├── test_main.py
-├── employees.csv
-├── employees.json
-├── valid_employees.csv
-├── invalid_employees.json
-├── duplicates.json
-├── statistics.json
-├── app.log
-└── README.md
+```text
+Hari-Backend-Training/
+├── .gitignore
+├── requirements.txt
+└── Task1/
+    ├── main.py
+    ├── database.py
+    ├── schema.sql
+    ├── test_main.py
+    ├── employees.csv
+    ├── employees.json
+    └── README.md
+```
 
+Output files such as `valid_employees.csv`, `invalid_employees.json`, `duplicates.json`, `statistics.json`, and `app.log` are generated locally when the program runs.
 
 ## OOP Structure
 
-The system includes four main classes:
+The system includes five main classes:
 
 - **EmployeeFileHandler:** Reads employee data and saves valid employee records.
 - **EmployeeValidator:** Validates employee information and separates valid and invalid records.
 - **EmployeeProcessor:** Handles normalization, duplicate detection, searching, filtering, sorting, and grouping.
 - **EmployeeStatistics:** Calculates employee statistics and salary information.
+- **DatabaseManager:** Manages MySQL connections, inserts valid employees, stores validation errors and duplicates, handles database errors, and closes connections.
+
+## MySQL Database Integration
+
+The system uses MySQL to store processed employee data.
+
+### Database
+
+**Database Name:** `employee_management`
+
+The database contains two tables.
+
+### 1. employees
+
+Stores employee records that successfully pass validation.
+
+| Column | Data Type |
+|---|---|
+| Employee_ID | INT (Primary Key) |
+| Full_name | VARCHAR(100) |
+| Email | VARCHAR(150), UNIQUE |
+| Department | VARCHAR(100) |
+| Salary | DECIMAL(10,2) |
+| Joining_date | DATE |
+| Employment_Status | VARCHAR(20) |
+
+### 2. errors
+
+Stores validation errors and duplicate employee records.
+
+| Column | Data Type |
+|---|---|
+| Error_ID | INT, AUTO_INCREMENT (Primary Key) |
+| Employee_ID | VARCHAR(50) |
+| Error_Type | VARCHAR(100) |
+| Error_Message | TEXT |
+
+### Database Operations
+
+The `DatabaseManager` class provides four main methods:
+
+- `connect()` — Establishes a connection to MySQL.
+- `insert_employee()` — Inserts valid employee records into the database.
+- `insert_error()` — Stores validation errors and duplicate records.
+- `close()` — Closes the database connection.
+
+The system uses parameterized SQL queries with `%s` placeholders and handles database errors using `try`, `except`, `commit()`, and `rollback()`.
+
+### Duplicate Handling
+
+- `INSERT IGNORE` is used to skip existing employee records.
+- `NOT EXISTS` is used to avoid inserting identical error records multiple times.
+- Database constraints such as `PRIMARY KEY` and `UNIQUE` help maintain data integrity.
 
 ## How to Run
 
-Requirements: Python 3.9 or later. No third-party packages are required.
+### Requirements
 
-1. Place `employees.csv` and `employees.json` in the project directory.
-2. Open a terminal in the project directory.
-3. Run:
+- Python 3.9 or later
+- MySQL Server
+- mysql-connector-python
+
+### 1. Install Dependencies
+
+From the repository root directory, run:
 
 ```bash
-python main.py
+python -m pip install -r requirements.txt
 ```
 
-The program processes employee records and generates output reports.
+### 2. Create the Database
+
+Log in to MySQL and execute the SQL statements provided in `Task1/schema.sql`.
+
+Alternatively, from a terminal with the MySQL client available:
+
+```bash
+mysql -u root -p < Task1/schema.sql
+```
+
+### 3. Configure Database Credentials
+
+Set the `MYSQL_PASSWORD` environment variable to your local MySQL password.
+
+For Windows PowerShell:
+
+```powershell
+$env:MYSQL_PASSWORD = Read-Host "Enter MySQL password"
+```
+
+The password is read using `os.getenv("MYSQL_PASSWORD")` and is not stored directly in the Python source code.
+
+### 4. Run the Application
+
+From the repository root directory:
+
+```bash
+python Task1/main.py
+```
+
+The application reads employee records, processes and validates the data, generates output reports, and stores the results in MySQL.
 
 ## Running Unit Tests
 
-Run:
+From the `Task1` directory, run:
 
 ```bash
 python -m unittest test_main.py
-
+```
 
 The tests cover valid, negative, and non-numeric salary values.
 
@@ -80,14 +178,28 @@ The tests cover valid, negative, and non-numeric salary values.
 | statistics.json | Employee counts, salary statistics, department counts, and top five highest-paid employees |
 | app.log | Logged program events and file errors |
 
+## Database Results
+
+During testing, the system processed nine employee records from CSV and JSON files.
+
+- **4 valid employees** stored in the `employees` table.
+- **4 validation errors** stored in the `errors` table.
+- **1 duplicate record** logged in the `errors` table.
+
+Repeated execution was tested to verify that existing employee records and identical errors were not inserted again.
+
 ## Technologies
 
 - Python
-- Object-Oriented Programming
+- Object-Oriented Programming (OOP)
+- MySQL
+- mysql-connector-python
+- SQL
 - CSV and JSON
 - pathlib
 - logging
 - unittest
+- Git and GitHub
 
 ## Author
 
