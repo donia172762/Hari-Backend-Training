@@ -1,0 +1,12 @@
+.env
+.venv/
+__pycache__/
+*.pyc
+.vscode/
+
+# Generated output files
+valid_employees.csv
+invalid_employees.json
+duplicates.json
+statistics.json
+app.log

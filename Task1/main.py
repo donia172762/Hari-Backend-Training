@@ -1,6 +1,7 @@
 import csv
 import datetime
 import json
+from database import DatabaseManager
 from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent
 import logging
@@ -9,6 +10,7 @@ logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s - %(levelname)s - %(message)s"
 )
+#decoroter
 def  log_execution(func):
     def wrapper(*args, **kwargs):
         logging.info("Function started")
@@ -42,7 +44,7 @@ class EmployeeFileHandler:
     ############################################
     def load_json_employees(self , file_path):
         with open(file_path, 'r', encoding='utf-8') as file:
-          employees = json.load(file) 
+          employees = json.load(file)
         return employees
 
     ################################################
@@ -217,7 +219,7 @@ class EmployeeProcessor:
             filtered = [emp for emp in filtered if emp["Employment_Status"].lower() == status.lower()]
 
         return filtered
-    # generator 
+    # generator
     def employee_generator(self , employees):
         for emp in employees:
             yield emp
@@ -269,8 +271,8 @@ class EmployeeStatistics:
 
 ############################################
 #invalid_employees.json
-def save_invalid_employees(invalid_employees) : 
-    with open('invalid_employees.json', 'w' ,encoding="utf-8") as file:    
+def save_invalid_employees(invalid_employees) :
+    with open('invalid_employees.json', 'w' ,encoding="utf-8") as file:
        json.dump(invalid_employees, file, indent=4, ensure_ascii=False)
 ############################################
 #duplicates.json
@@ -309,5 +311,19 @@ def main():
         print(emp["Full_name"])
 
 
+    db = DatabaseManager()
+    db.connect()
+    for emp in valid_employees:
+        db.insert_employee(emp)
+    for emp in invalid_employees:
+      for error in emp["Errors"]:
+        db.insert_error(emp["Employee_ID"], "Validation", error)
+    for dup in duplicates:
+      db.insert_error(
+        dup["Employee_ID"],
+        "Duplicate",
+        "Duplicate employee ID or email"
+    )
+    db.close()
 if __name__ == "__main__":
     main()
